@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  rabbitmq:
+    hostname: 'myrabbit'
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    volumes:
+      - rabbitvolume:/var/lib/rabbitmq/
+    networks:
+      - rabbit
+
+networks: 
+    rabbit:
+      driver: bridge
+      
+volumes:
+  rabbitvolume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./rabbit_data

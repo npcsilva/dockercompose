@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: npcsilva
+      POSTGRES_PASSWORD: myP@ss123
+      POSTGRES_DB: defaultDb
+    ports:
+      - "1508:5432"
+    container_name: db.pg
+    restart: always
+    volumes:
+      - postgresvolume:/var/lib/postgresql/data
+  
+  pgadmin:
+    container_name: pgadmin
+    user: root
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=npcsilva@pm.me
+      - PGADMIN_DEFAULT_PASSWORD=pgaPass
+    ports:
+      - "5050:80"
+    restart: always
+    volumes:
+      - pgadminvolume:/var/lib/pgadmin
+ # "Host=host.docker.internal;Port=1508;Database={this.Database};Username={this.Username};Password={this.Password}";
+
+volumes:
+  pgadminvolume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./pgadmin_data
+  
+  postgresvolume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./postgres_data
+    
