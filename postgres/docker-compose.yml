@@ -18,7 +18,7 @@ services:
     user: root
     image: dpage/pgadmin4
     environment:
-      - PGADMIN_DEFAULT_EMAIL=npcsilva@pm.me
+      - PGADMIN_DEFAULT_EMAIL=pga@test.me
       - PGADMIN_DEFAULT_PASSWORD=pgaPass
     ports:
       - "5050:80"
